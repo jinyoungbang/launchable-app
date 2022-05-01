@@ -1,0 +1,30 @@
+.container {
+  margin-top: 7.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container :hover {
+  background-color: #F4FAFF;
+}
+
+.boxContainer {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+}
+
+.contentContainer {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.subtitle {
+  font-size: 12px;
+}
