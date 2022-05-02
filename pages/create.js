@@ -1,11 +1,23 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
-
-import { Input } from '@chakra-ui/react'
-import { Textarea } from '@chakra-ui/react'
+import styles from "../styles/Create.module.css";
+import { Input, Textarea, Button } from "@chakra-ui/react";
 import Header from "../components/main/Header";
+import { Formik, Form, Field } from "formik";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
 
+function validateName(value) {
+  let error;
+  if (!value) {
+    error = "Name is required";
+  }
+  return error;
+}
 
 export default function Home() {
   return (
@@ -16,10 +28,76 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Input placeholder='Enter Title Here' size='lg' />
+      <div className={styles.createContainer}>
+        <Formik
+          initialValues={{ title: "", content: "" }}
+          onSubmit={(values, actions) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              actions.setSubmitting(false);
+            }, 1000);
+          }}
+        >
+          {(props) => (
+            <Form>
+              <Field name="title" validate={validateName}>
+                {({ field, form }) => (
+                  <FormControl
+                    isInvalid={form.errors.name && form.touched.name}
+                  >
+                    <Input
+                      {...field}
+                      placeholder="제목을 입력하세요"
+                      id="title"
+                      variant="flushed"
+                      size="lg"
+                    />
+                    {/* <FormErrorMessage>{form.errors.name}</FormErrorMessage> */}
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="content" validate={validateName}>
+                {({ field, form }) => (
+                  <FormControl
+                    isInvalid={form.errors.name && form.touched.name}
+                  >
+                    <Textarea
+                      {...field}
+                      placeholder="글을 작성해보세요..."
+                      id="content"
+                    />
+                    {/* <FormErrorMessage>{form.errors.name}</FormErrorMessage> */}
+                  </FormControl>
+                )}
+              </Field>
+
+              {/* <Button
+                mt={4}
+                colorScheme="teal"
+                isLoading={props.isSubmitting}
+                type="submit"
+              >
+                Submit
+              </Button> */}
+              <Button
+                variant="solid"
+                isLoading={props.isSubmitting}
+                type="submit"
+              >
+                출간하기
+              </Button>
+              <Button variant="solid" style={{ marginLeft: "5px" }}>
+                임시저장
+              </Button>
+              <Button variant="solid" style={{ marginLeft: "5px" }}>
+                출간하기
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        <br />
+      </div>
       <br />
-      <br />
-      <Textarea placeholder='Here is a sample placeholder' />
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
