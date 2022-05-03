@@ -43,6 +43,10 @@
   /* color: #FFFFFF; */
   background: #038A64;
 }
+.createContainer Button[disabled]:hover{
+  /* color: #FFFFFF; */
+  background: #04B482;
+}
 
 @media (max-width: 1024px) {
   .createContainer {

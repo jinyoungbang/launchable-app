@@ -19,7 +19,7 @@ function validateName(value) {
   return error;
 }
 
-export default function Home() {
+export default function Create() {
   return (
     <div className={styles.container}>
       <Head>
@@ -70,27 +70,20 @@ export default function Home() {
                   </FormControl>
                 )}
               </Field>
-
-              {/* <Button
-                mt={4}
-                colorScheme="teal"
-                isLoading={props.isSubmitting}
-                type="submit"
-              >
-                Submit
-              </Button> */}
+                {console.log(props)}
               <Button
                 variant="solid"
+                isDisabled={props.values.title === "" || props.values.content === ""}
                 isLoading={props.isSubmitting}
                 type="submit"
               >
                 출간하기
               </Button>
-              <Button variant="solid" style={{ marginLeft: "5px" }}>
+              {/* <Button variant="solid" style={{ marginLeft: "5px" }}>
                 임시저장
-              </Button>
+              </Button> */}
               <Button variant="solid" style={{ marginLeft: "5px" }}>
-                출간하기
+                프리뷰 보기
               </Button>
             </Form>
           )}

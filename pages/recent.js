@@ -6,7 +6,7 @@ import Header from "../components/main/Header";
 import PostsHeader from "../components/posts/PostsHeader";
 import Preview from "../components/posts/Preview";
 
-export default function Home() {
+export default function Recent() {
   return (
     <div className={styles.container}>
       <Head>
