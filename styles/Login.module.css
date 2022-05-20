@@ -40,6 +40,56 @@
   background: #04B482;
 }
 
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 6rem;
+  align-items: center;
+}
+
+.formContainer Input:focus {
+  border-color: #038A64;
+  box-shadow: 0px 0px 0px 0px #038A64
+}
+
+
+.usernameFieldContainer Button {
+  color: #FFFFFF;
+  background-color: #038A64;
+}
+
+.usernameFieldContainer Button:hover {
+  /* color: #FFFFFF; */
+  background: #04B482;
+}
+
+
+.contentContainer {
+  padding-left: 2rem;
+}
+
+.iconButton {
+  align-items: center;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  height: 42px;
+  justify-content: center;
+  text-align: center;
+  width: 42px;
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: row;
+  align-items: center;
+}
+
+.socialIcon {
+  height: 18px;
+  width: 18px;
+}
 
 @media (max-width: 768px) {
   .container {

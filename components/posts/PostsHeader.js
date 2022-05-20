@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
+import { useAuth } from "../auth/AuthContext";
 
-const PostsHeader = () => {
+const PostsHeader = (props) => {
   const router = useRouter();
-  // const { pathName } = router.pathname;
+  const { currentUser } = useAuth();
 
   return (
     <div className={styles.container}>
@@ -29,15 +30,28 @@ const PostsHeader = () => {
           </Link>
         </div>
       )}
-      <Link href="/create">
-        <Button
-          leftIcon={<MdAdd />}
-          variant="solid"
-          style={{ backgroundColor: "#038A64", color: "#FFFFFF" }}
-        >
-          새 글 작성
-        </Button>
-      </Link>
+
+      {currentUser ? (
+        <Link href="/create">
+          <Button
+            leftIcon={<MdAdd />}
+            variant="solid"
+            style={{ backgroundColor: "#038A64", color: "#FFFFFF" }}
+          >
+            새 글 작성
+          </Button>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <Button
+            leftIcon={<MdAdd />}
+            variant="solid"
+            style={{ backgroundColor: "#038A64", color: "#FFFFFF" }}
+          >
+            새 글 작성
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };

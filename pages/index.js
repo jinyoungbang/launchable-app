@@ -1,27 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+// import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Header from "../components/main/Header";
 import PostsHeader from "../components/posts/PostsHeader";
 import Preview from "../components/posts/Preview";
-import auth from "../config/firebase"
-import { onAuthStateChanged } from "firebase/auth";
+
+// import { useAuth } from "../components/auth/AuthContext";
 
 export default function Home() {
-  const [userIsAuth, setUserIsAuth] = useState(false);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUserIsAuth(true);
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+  // const { currentUser } = useAuth();
   return (
     <div className={styles.container}>
       <Head>
@@ -30,8 +18,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {userIsAuth ? ("user authorizsed") : ("user not uth")}
-      <Header />
+      <Header/>
       <PostsHeader />
       <Preview />
       <Preview />

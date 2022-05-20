@@ -4,9 +4,23 @@ import styles from "../styles/Login.module.css";
 
 import Header from "../components/main/Header";
 import { Input, Button, FormControl } from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+} from "firebase/auth";
 import auth from "../config/firebase";
 import { Formik, Form, Field } from "formik";
+import MainButton from "../components/assets/MainButton";
+import { FcGoogle } from "react-icons/fc";
+import { FaTwitter, FaFacebookSquare } from "react-icons/fa";
+import axios from "axios";
+import { useAuth } from "../components/auth/AuthContext";
+
+const googleProvider = new GoogleAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
 
 function validateName(value) {
   let error;
@@ -18,6 +32,57 @@ function validateName(value) {
 
 export default function Login() {
   const router = useRouter();
+  const { currentUser } = useAuth();
+  if (currentUser) router.push("/");
+
+  const checkIfUserIdExists = (id) => {
+    axios({
+      method: "post",
+      url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth",
+      data: JSON.stringify({
+        id: id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.data.userExists) router.push("/");
+      else {
+        signOut(auth).then(() => {
+          console.log("login");
+        });
+      }
+    });
+  };
+
+  const googleLogin = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        checkIfUserIdExists(user.uid);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  const twitterLogin = () => {
+    signInWithPopup(auth, twitterProvider)
+      .then((result) => {
+        const user = result.user;
+        checkIfUserIdExists(user.uid);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -28,7 +93,7 @@ export default function Login() {
       </Head>
 
       <Header />
-      <div>
+      <div className={styles.formContainer}>
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, actions) => {
@@ -36,7 +101,7 @@ export default function Login() {
               .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                router.push("/");
+                checkIfUserIdExists(user.uid);
                 // ...
               })
               .catch((error) => {
@@ -48,7 +113,7 @@ export default function Login() {
           }}
         >
           {(props) => (
-            <Form>
+            <Form style={{ width: "49%" }}>
               <Field name="email" validate={validateName}>
                 {({ field, form }) => (
                   <FormControl
@@ -81,16 +146,51 @@ export default function Login() {
                   </FormControl>
                 )}
               </Field>
-              <Button
-                variant="solid"
-                isLoading={props.isSubmitting}
-                type="submit"
-              >
-                로그인
-              </Button>
+              <div className={styles.buttonContainer}>
+                <MainButton
+                  isLoading={props.isSubmitting}
+                  type="submit"
+                  text="로그인"
+                />
+                <p style={{ margin: "0 1rem" }}>또는</p>
+                <button
+                  className={styles.iconButton}
+                  style={{ border: "1px solid #DEE2E6" }}
+                  onClick={googleLogin}
+                >
+                  <FcGoogle className={styles.socialIcon} />
+                </button>
+                <button
+                  className={styles.iconButton}
+                  style={{ backgroundColor: "#1e99e6", marginLeft: "0.25rem" }}
+                  onClick={twitterLogin}
+                >
+                  <FaTwitter
+                    className={styles.socialIcon}
+                    style={{ color: "white" }}
+                  />
+                </button>
+                {/* <button
+                  className={styles.iconButton}
+                  style={{ backgroundColor: "#3b5897", marginLeft: "0.25rem" }}
+                >
+                  <FaFacebookSquare
+                    className={styles.socialIcon}
+                    style={{ color: "white" }}
+                  />
+                </button> */}
+              </div>
             </Form>
           )}
         </Formik>
+        <div style={{ width: "49%" }} className={styles.contentContainer}>
+          <h1>Login to Launchable</h1>
+          <h1>Connect with other indie hackers running online businesses.</h1>
+          <br></br>
+          <h1>Get feedback on your business ideas, landing pages, and more.</h1>
+          <br />
+          <h1>Get the best new stories from founders in your inbox.</h1>
+        </div>
       </div>
     </div>
   );

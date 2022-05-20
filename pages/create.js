@@ -1,15 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import styles from "../styles/Create.module.css";
-import { Input, Textarea, Button } from "@chakra-ui/react";
+import { Input, Textarea, Button, FormControl } from "@chakra-ui/react";
 import Header from "../components/main/Header";
 import { Formik, Form, Field } from "formik";
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/react";
+import Link from "next/link";
+import { FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
+import { useAuth } from "../components/auth/AuthContext";
+import axios from "axios";
 
 function validateName(value) {
   let error;
@@ -20,6 +19,13 @@ function validateName(value) {
 }
 
 export default function Create() {
+  const { currentUser, loading, userData } = useAuth();
+  const router = useRouter();
+  if (loading) {
+    return <p>lol</p>;
+  }
+
+  if (!currentUser) router.push("/signup");
   return (
     <div className={styles.container}>
       <Head>
@@ -30,63 +36,85 @@ export default function Create() {
       <Header />
       <div className={styles.createContainer}>
         <Formik
-          initialValues={{ title: "", content: "" }}
+          initialValues={{ title: "", body: "" }}
           onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
+            axios({
+              method: "post",
+              url: process.env.NEXT_PUBLIC_API_ROUTE + "/api/posts",
+              data: JSON.stringify({
+                title: values.title,
+                body: values.body,
+                user: userData.username,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }).then((res) => {
+              if (res.status === 201) router.push("/");
+              else actions.setSubmitting(false);
+            });
           }}
         >
-          {(props) => (
-            <Form>
-              <Field name="title" validate={validateName}>
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
-                    <Input
-                      {...field}
-                      placeholder="제목을 입력하세요"
-                      id="title"
-                      variant="flushed"
-                      size="lg"
-                    />
-                    {/* <FormErrorMessage>{form.errors.name}</FormErrorMessage> */}
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="content" validate={validateName}>
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
-                    <Textarea
-                      {...field}
-                      placeholder="글을 작성해보세요..."
-                      id="content"
-                    />
-                    {/* <FormErrorMessage>{form.errors.name}</FormErrorMessage> */}
-                  </FormControl>
-                )}
-              </Field>
-                {console.log(props)}
-              <Button
-                variant="solid"
-                isDisabled={props.values.title === "" || props.values.content === ""}
-                isLoading={props.isSubmitting}
-                type="submit"
-              >
-                출간하기
-              </Button>
-              {/* <Button variant="solid" style={{ marginLeft: "5px" }}>
+          {(props) =>
+            router.query.previewing ? (
+              <div>
+                {/* Create a component that displays preview to be used on post and also for preview purposes. */}
+                <h1>{props.values.title}</h1>
+                <h1>{props.values.body}</h1>
+              </div>
+            ) : (
+              <Form>
+                <Field name="title" validate={validateName}>
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={form.errors.name && form.touched.name}
+                    >
+                      <Input
+                        {...field}
+                        placeholder="제목을 입력하세요"
+                        id="title"
+                        variant="flushed"
+                        size="lg"
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+                <Field name="body" validate={validateName}>
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={form.errors.name && form.touched.name}
+                    >
+                      <Textarea
+                        {...field}
+                        placeholder="글을 작성해보세요..."
+                        id="body"
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+                <Button
+                  variant="solid"
+                  isDisabled={
+                    props.values.title === "" || props.values.body === ""
+                  }
+                  isLoading={props.isSubmitting}
+                  type="submit"
+                >
+                  출간하기
+                </Button>
+                {/* <Button variant="solid" style={{ marginLeft: "5px" }}>
                 임시저장
               </Button> */}
-              <Button variant="solid" style={{ marginLeft: "5px" }}>
-                프리뷰 보기
-              </Button>
-            </Form>
-          )}
+                <Link
+                  href={{ pathname: "/create", query: { previewing: true } }}
+                >
+                  <Button variant="solid" style={{ marginLeft: "5px" }}>
+                    프리뷰 보기
+                  </Button>
+                </Link>
+              </Form>
+            )
+          }
         </Formik>
         <br />
       </div>

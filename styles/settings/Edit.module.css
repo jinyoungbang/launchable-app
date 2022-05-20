@@ -1,0 +1,82 @@
+.container {
+  padding: 0 4rem;
+  margin: 0 auto;
+  max-width: 1232px;
+}
+
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 2rem 0;
+}
+
+.headerContainer h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.usernameContainer {
+  margin-left: 2rem;
+}
+
+.usernameEditContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fieldsContainer input {
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  .headerContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .usernameContainer {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+}
+
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}

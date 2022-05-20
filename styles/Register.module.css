@@ -1,0 +1,102 @@
+.container {
+    padding: 0 2rem;
+    margin: 0 auto;
+    max-width: 768px;
+  }
+  
+  .fieldContainer {
+    padding-top: 4rem;
+  }
+  
+  .fieldContainer Input {
+    /* font-size: 26px; */
+    /* border-bottom: 4px solid #E2E8F0; */
+    margin-bottom: 20px;
+  }
+  
+  .fieldContainer Input:focus {
+    border-color: #038A64;
+    box-shadow: 0px 0px 0px 0px #038A64
+  }
+  
+  
+  .fieldContainer Button {
+    color: #FFFFFF;
+    background-color: #038A64;
+  }
+  
+  .fieldContainer Button:hover {
+    /* color: #FFFFFF; */
+    background: #04B482;
+  }
+  
+  .createContainer Button:active {
+    /* color: #FFFFFF; */
+    background: #038A64;
+  }
+  
+  .fieldContainer Button[disabled]:hover {
+    /* color: #FFFFFF; */
+    background: #04B482;
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 6rem;
+    align-items: flex-start;
+  }
+  
+  .contentContainer {
+    padding-left: 2rem;
+  }
+  
+  .iconButton {
+    align-items: center;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    text-align: center;
+    width: 42px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .socialIcon {
+    height: 18px;
+    width: 18px;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+      margin: 0 auto;
+    }
+  
+    .fieldContainer {
+      padding: 0 4rem;
+      padding-top: 4rem;
+    }
+  
+    .createContainer Input {
+      width: 80%;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .container {
+      padding: 0 0.5rem;
+    }
+  
+    .fieldContainer {
+      padding: 0 0.25rem;
+      padding-top: 4rem;
+    }
+  }
