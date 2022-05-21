@@ -5,10 +5,10 @@ import { Input, Textarea, Button, FormControl } from "@chakra-ui/react";
 import Header from "../components/main/Header";
 import { Formik, Form, Field } from "formik";
 import Link from "next/link";
-import { FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
 import { useAuth } from "../components/auth/AuthContext";
 import axios from "axios";
 import PostView from "../components/posts/PostView";
+import ResizeTextarea from "react-textarea-autosize";
 
 function validateName(value) {
   let error;
@@ -21,11 +21,14 @@ function validateName(value) {
 export default function Create() {
   const { currentUser, loading, userData } = useAuth();
   const router = useRouter();
+
+
   if (loading) {
     return <p>lol</p>;
   }
 
   if (!currentUser) router.push("/signup");
+
   return (
     <div className={styles.container}>
       <Head>
@@ -57,7 +60,7 @@ export default function Create() {
         >
           {(props) =>
             router.query.previewing ? (
-              <div>
+              <Form>
                 <PostView
                   title={props.values.title}
                   body={props.values.body}
@@ -80,7 +83,7 @@ export default function Create() {
                     </Button>
                   </Link>
                 </div>
-              </div>
+              </Form>
             ) : (
               <Form>
                 <Field name="title" validate={validateName}>
@@ -107,6 +110,9 @@ export default function Create() {
                         {...field}
                         placeholder="글을 작성해보세요..."
                         id="body"
+                        resize="none"
+                        style={{height: "150px"}}
+                        as={ResizeTextarea}
                       />
                     </FormControl>
                   )}

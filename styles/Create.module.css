@@ -22,7 +22,6 @@
 
 .createContainer Textarea {
   margin-bottom: 20px;
-  height: 80%
 }
 
 .createContainer Textarea:focus {

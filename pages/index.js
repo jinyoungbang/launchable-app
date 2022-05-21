@@ -5,11 +5,27 @@ import styles from "../styles/Home.module.css";
 import Header from "../components/main/Header";
 import PostsHeader from "../components/posts/PostsHeader";
 import Preview from "../components/posts/Preview";
+import useSWR from "swr";
+import axios from "axios";
 
 // import { useAuth } from "../components/auth/AuthContext";
 
 export default function Home() {
-  // const { currentUser } = useAuth();
+
+  const fetcher = (url) =>
+    axios({
+      method: "get",
+      url: url,
+    }).then((res) => {
+      return res.data;
+    });
+
+  const { data, error } = useSWR(
+    process.env.NEXT_PUBLIC_API_ROUTE + "api/posts",
+    fetcher
+  );
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,14 +34,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header/>
+      <Header />
       <PostsHeader />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
-      <Preview />
+      {data && data.data.map((post) => (
+        <Preview
+          title={post.title}
+          user={post.user}
+          likes={post.likes}
+          commentsCount={post.comments_count}
+        />
+      ))}
       <br />
       <footer className={styles.footer}>
         <a

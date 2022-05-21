@@ -3,12 +3,14 @@
 }
 
 .postContainer h1 {
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 700;
 }
 
 .postContainer p {
   white-space: pre-line;
+  font-size: 1.1rem;
+  font-weight: 400;
 }
 
 /* .postConatiner */
