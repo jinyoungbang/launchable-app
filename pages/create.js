@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../styles/Create.module.css";
 import { Input, Textarea, Button, FormControl } from "@chakra-ui/react";
@@ -9,6 +8,7 @@ import Link from "next/link";
 import { FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
 import { useAuth } from "../components/auth/AuthContext";
 import axios from "axios";
+import PostView from "../components/posts/PostView";
 
 function validateName(value) {
   let error;
@@ -58,9 +58,28 @@ export default function Create() {
           {(props) =>
             router.query.previewing ? (
               <div>
-                {/* Create a component that displays preview to be used on post and also for preview purposes. */}
-                <h1>{props.values.title}</h1>
-                <h1>{props.values.body}</h1>
+                <PostView
+                  title={props.values.title}
+                  body={props.values.body}
+                  user={userData && userData.username}
+                />
+                <div style={{ marginTop: "2rem" }}>
+                  <Button
+                    variant="solid"
+                    isDisabled={
+                      props.values.title === "" || props.values.body === ""
+                    }
+                    isLoading={props.isSubmitting}
+                    type="submit"
+                  >
+                    출간하기
+                  </Button>
+                  <Link href="/create">
+                    <Button variant="solid" style={{ marginLeft: "5px" }}>
+                      수정하기
+                    </Button>
+                  </Link>
+                </div>
               </div>
             ) : (
               <Form>
@@ -119,18 +138,7 @@ export default function Create() {
         <br />
       </div>
       <br />
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      {/* <footer className={styles.footer}>Launchable 2022</footer> */}
     </div>
   );
 }

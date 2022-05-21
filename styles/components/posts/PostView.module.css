@@ -1,0 +1,14 @@
+.postContainer {
+  margin-top: 2rem;
+}
+
+.postContainer h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.postContainer p {
+  white-space: pre-line;
+}
+
+/* .postConatiner */
