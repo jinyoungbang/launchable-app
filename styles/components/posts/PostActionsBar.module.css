@@ -1,0 +1,13 @@
+.container {
+    margin-top: 2rem;
+    padding: 0 8rem;
+}
+
+.container Button {
+    width: 5rem;
+    background-color: white;
+    outline-color: #038a64;
+    outline-width: 1.5px;
+    outline-offset: 0px;
+    color: #038a64
+}

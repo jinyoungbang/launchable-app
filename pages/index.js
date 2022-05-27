@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-// import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import Header from "../components/main/Header";
 import PostsHeader from "../components/posts/PostsHeader";
@@ -8,9 +8,8 @@ import Preview from "../components/posts/Preview";
 import useSWR from "swr";
 import axios from "axios";
 
-// import { useAuth } from "../components/auth/AuthContext";
-
 export default function Home() {
+  const router = useRouter();
 
   const fetcher = (url) =>
     axios({
@@ -25,7 +24,6 @@ export default function Home() {
     fetcher
   );
 
-
   return (
     <div className={styles.container}>
       <Head>
@@ -36,14 +34,17 @@ export default function Home() {
       </Head>
       <Header />
       <PostsHeader />
-      {data && data.data.map((post) => (
-        <Preview
-          title={post.title}
-          user={post.user}
-          likes={post.likes}
-          commentsCount={post.comments_count}
-        />
-      ))}
+      {data &&
+        data.data.map((post) => (
+          <div onClick={() => router.push("/post/" + post.id)}>
+            <Preview
+              title={post.title}
+              user={post.user}
+              likes={post.likes_count}
+              commentsCount={post.comments_count}
+            />
+          </div>
+        ))}
       <br />
       <footer className={styles.footer}>
         <a

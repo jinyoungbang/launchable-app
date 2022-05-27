@@ -1,5 +1,7 @@
 .postContainer {
+  margin: 0 auto;
   margin-top: 2rem;
+  padding: 0 8rem;
 }
 
 .postContainer h1 {
@@ -13,4 +15,47 @@
   font-weight: 400;
 }
 
-/* .postConatiner */
+.usernameLink a {
+  position: relative;
+  white-space: nowrap;
+}
+
+.usernameLink a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #038A64;
+  top: 20px;
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+.usernameLink a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  .postContainer {
+    margin-top: 2rem;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  .postContainer h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+  }
+
+  .postContainer p {
+    white-space: pre-line;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+}

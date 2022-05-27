@@ -1,0 +1,41 @@
+.actionsContainer {
+    position: absolute;
+    transform: translate(-8rem, 0);
+}
+
+.actionsContainerSticky {
+    position: fixed;
+    top: 83px;
+    transform: translate(-8rem, 0);
+}
+
+.widthMinimizedActionsContainer {
+    display: flex;
+
+}
+
+.actionsBorder {
+    background-color: hsl(0, 0%, 96.5%);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 25px 16px 16px;
+    width: -moz-min-content;
+    width: min-content;
+}
+
+.actionsBorder  button :hover {
+    background-color: green;
+}
+
+.likeButton {
+    align-items: center;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    text-align: center;
+    width: 42px;
+    /* background-color: white; */
+}

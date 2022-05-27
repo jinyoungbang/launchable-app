@@ -111,7 +111,7 @@ export default function Create() {
                         placeholder="글을 작성해보세요..."
                         id="body"
                         resize="none"
-                        style={{height: "150px"}}
+                        minRows={8}
                         as={ResizeTextarea}
                       />
                     </FormControl>
