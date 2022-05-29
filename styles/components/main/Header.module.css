@@ -1,5 +1,7 @@
 .container {
-  padding: 0.25rem 0;
+  padding: 0.25rem 2rem;
+  margin: 0 auto;
+  max-width: 1024px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,7 +20,7 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 0.25rem 0;
+    padding: 0.25rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +29,7 @@
 
 @media (max-width: 320px) {
   .container {
-    padding: 0.25rem 0rem;
+    padding: 0.25rem 0.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

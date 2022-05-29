@@ -1,7 +1,6 @@
 .postContainer {
   margin: 0 auto;
   margin-top: 2rem;
-  padding: 0 8rem;
 }
 
 .postContainer h1 {
@@ -43,7 +42,6 @@
 @media (max-width: 768px) {
   .postContainer {
     margin-top: 2rem;
-    padding: 0 1rem;
     margin: 0 auto;
   }
 

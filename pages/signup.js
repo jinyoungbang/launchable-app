@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, Button, FormControl } from "@chakra-ui/react";
 import axios from "axios";
@@ -35,6 +35,19 @@ export default function Signup() {
   const router = useRouter();
   if (currentUser) router.push("/");
 
+  const handleResize = () => {
+    if (window.innerWidth < 544) {
+      setIsWidthMinimized(true);
+    } else {
+      setIsWidthMinimized(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  });
+
+  const [isWidthMinimized, setIsWidthMinimized] = useState(false);
   const [usernameFilled, setUsernameFilled] = useState(false);
   const [usernameFilledLoader, setUsernameFilledLoader] = useState(false);
   const [usernameFilledError, setUsernameFilledError] = useState("");
@@ -96,7 +109,7 @@ export default function Signup() {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   const googleSignin = (username) => {
     signInWithPopup(auth, googleProvider)
@@ -136,7 +149,6 @@ export default function Signup() {
       });
   };
 
-
   return (
     <div className={styles.container}>
       <Head>
@@ -159,7 +171,7 @@ export default function Signup() {
             createUserWithEmailAndPassword(auth, values.email, values.password)
               .then((userCredential) => {
                 const user = userCredential.user;
-                createUserInstance(user.uid, user.email, values.username)
+                createUserInstance(user.uid, user.email, values.username);
               })
               .catch((error) => {
                 const errorCode = error.code;
@@ -174,7 +186,11 @@ export default function Signup() {
         >
           {usernameFilled
             ? (props) => (
-                <Form style={{ width: "49%" }}>
+                <Form
+                  style={
+                    isWidthMinimized ? { width: "100%" } : { width: "49%" }
+                  }
+                >
                   <Field name="email" validate={validateName}>
                     {({ field, form }) => (
                       <FormControl
@@ -251,7 +267,9 @@ export default function Signup() {
               )
             : (props) => (
                 <Form
-                  style={{ width: "49%" }}
+                  style={
+                    isWidthMinimized ? { width: "100%" } : { width: "49%" }
+                  }
                   className={styles.usernameFieldContainer}
                 >
                   <Field name="username">
@@ -283,14 +301,18 @@ export default function Signup() {
               )}
         </Formik>
 
-        <div style={{ width: "49%" }} className={styles.contentContainer}>
-          <h1>Signup to Launchable</h1>
-          <h1>Connect with other indie hackers running online businesses.</h1>
-          <br></br>
-          <h1>Get feedback on your business ideas, landing pages, and more.</h1>
-          <br />
-          <h1>Get the best new stories from founders in your inbox.</h1>
-        </div>
+        {isWidthMinimized ? null : (
+          <div style={{ width: "49%" }} className={styles.contentContainer}>
+            <h1>Signup to Launchable</h1>
+            <h1>Connect with other indie hackers running online businesses.</h1>
+            <br></br>
+            <h1>
+              Get feedback on your business ideas, landing pages, and more.
+            </h1>
+            <br />
+            <h1>Get the best new stories from founders in your inbox.</h1>
+          </div>
+        )}
       </div>
     </div>
   );

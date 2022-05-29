@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { Button, Stack } from "@chakra-ui/react";
 
 const PostActionsBar = (props) => {
+  const router = useRouter();
   const [likesCount, setLikesCount] = useState();
   const [postLiked, setPostLiked] = useState();
   useEffect(() => {
@@ -15,6 +16,7 @@ const PostActionsBar = (props) => {
   }, [props]);
 
   const likePost = (uid) => {
+    if (uid === null) router.push("/login")
     axios({
       method: "post",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/posts/like/" + props.postId,

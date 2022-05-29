@@ -21,15 +21,11 @@ const Header = (props) => {
   } else {
     return (
       <header className={styles.container}>
-        <h1
-          style={{
-            fontFamily: "Alata",
-            fontSize: "larger",
-            fontStretch: "condensed",
-          }}
-        >
-          launchable
-        </h1>
+        <Link href="/">
+          <h1 style={{ fontFamily: "Alata", fontSize: "larger" }}>
+            launchable
+          </h1>
+        </Link>
         <div>
           <Link href="/login">
             <Button variant="solid">로그인</Button>

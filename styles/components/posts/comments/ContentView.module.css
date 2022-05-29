@@ -1,0 +1,39 @@
+.viewContainer {
+  display: flex;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  justify-content: space-between;
+  white-space: pre-line;
+  border-bottom: 0.9px solid gainsboro;
+}
+
+.viewContainer h3 {
+  font-size: 15px;
+}
+
+.infoContainer {
+  margin-top: 4px;
+  display: flex;
+}
+
+.infoContainer h4 {
+  font-size: 10px;
+  font-weight: 400;
+  color: grey
+}
+
+.actionsContainer {
+  display: flex
+}
+
+.actionsContainer h4 {
+  font-size: 12px;
+  font-weight: 500;
+  color: grey
+}
+
+.actionsContainer h4:hover {
+  color: #02503a;
+  font-weight: 700;
+  text-decoration: underline 1.5px;
+}
