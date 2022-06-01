@@ -35,7 +35,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data && currentUser) {
+    if (data) {
       setIsLoading(false);
     }
   }, [data]);
