@@ -14,6 +14,27 @@
   font-weight: 400;
 }
 
+.subtitleContainer {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.actionsContainer {
+  display: flex
+}
+
+.actionsContainer h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: grey
+}
+
+.actionsContainer h4:hover {
+  color: #02503a;
+  font-weight: 700;
+  text-decoration: underline 1.5px;
+}
+
 .usernameLink a {
   position: relative;
   white-space: nowrap;
@@ -54,6 +75,11 @@
     white-space: pre-line;
     font-size: 1rem;
     font-weight: 400;
+  }
+
+  .subtitleContainer {
+    display: flex;
+    justify-content: space-between;
   }
 
 }

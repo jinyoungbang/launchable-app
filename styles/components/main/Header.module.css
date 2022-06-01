@@ -16,6 +16,12 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  transition: color 200ms ease;
+}
+
+.container h1:hover {
+  color: #02503a;
+
 }
 
 @media (max-width: 768px) {

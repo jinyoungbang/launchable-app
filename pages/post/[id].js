@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/Home.module.css";
 import mainStyles from "../../styles/Main.module.css";
 import Header from "../../components/main/Header";
@@ -10,6 +10,7 @@ import axios from "axios";
 import PostView from "../../components/posts/PostView";
 import PostActionsBar from "../../components/posts/PostActionsBar";
 import Comments from "../../components/posts/Comments";
+import Loader from "../../components/main/Loader";
 
 import { useAuth } from "../../components/auth/AuthContext";
 
@@ -31,6 +32,15 @@ export default function Home() {
     fetcher
   );
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (data && currentUser) {
+      setIsLoading(false);
+    }
+  }, [data]);
+
+  if (isLoading) return <Loader />
 
   return (
     <div>
@@ -44,9 +54,11 @@ export default function Home() {
       <div className={mainStyles.container}>
         <PostView
           user={data && data.user}
+          postId={data && data.id}
           title={data && data.title}
           body={data && data.body}
           likes={data && data.likes_count}
+          isPreview={false}
         />
         <PostActionsBar
           likesCount={data && data.likes_count}

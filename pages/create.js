@@ -65,6 +65,7 @@ export default function Create() {
                   title={props.values.title}
                   body={props.values.body}
                   user={userData && userData.username}
+                  isPreview={true}
                 />
                 <div style={{ marginTop: "2rem" }}>
                   <Button
