@@ -74,7 +74,7 @@ const PostView = (props) => {
                   marginTop: "1rem",
                   marginBottom: "2rem",
                 }
-              : { marginTop: "1rem", marginBottom: "2rem" }
+              : { marginTop: "2rem", marginBottom: "2rem" }
           }
         >
           <div className={styles.subtitleContainer}>

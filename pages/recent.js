@@ -8,6 +8,7 @@ import PostsHeader from "../components/posts/PostsHeader";
 import Preview from "../components/posts/Preview";
 import useSWR from "swr";
 import axios from "axios";
+import LoaderComponent from "../components/main/LoaderComponent";
 
 export default function Home() {
   const router = useRouter();
@@ -36,7 +37,7 @@ export default function Home() {
       <Header />
       <div className={mainStyles.homeContainer}>
         <PostsHeader />
-        {data &&
+        {data ? (
           data.data.map((post) => (
             <div onClick={() => router.push("/post/" + post.id)}>
               <Preview
@@ -46,7 +47,10 @@ export default function Home() {
                 commentsCount={post.comments_count}
               />
             </div>
-          ))}
+          ))
+        ) : (
+          <LoaderComponent />
+        )}
       </div>
       <br />
     </div>
