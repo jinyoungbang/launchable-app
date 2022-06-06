@@ -11,6 +11,8 @@ import { Button, Avatar, Center } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Loader from "../../components/main/Loader";
+import auth from "../../config/firebase";
+import { signOut } from "firebase/auth";
 
 import { useAuth } from "../../components/auth/AuthContext";
 
@@ -20,6 +22,19 @@ export default function Settings() {
   if (!currentUser) router.push("/signup");
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const deleteUser = (id) => {
+    axios({
+      method: "delete",
+      url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + id,
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        signOut(auth);
+        router.push("/");
+      } else console.log("error");
+    });
+  };
 
   const fetcher = (url) =>
     axios({
@@ -34,6 +49,7 @@ export default function Settings() {
     }).then((res) => {
       return res.data.userData;
     });
+
   const { data, error } = useSWR(
     process.env.NEXT_PUBLIC_API_ROUTE + "api/auth",
     fetcher
@@ -115,7 +131,7 @@ export default function Settings() {
         </div>
 
         <div className={styles.basicInfoContainer}>
-        <h2>연락/소셜 정보</h2>
+          <h2>연락/소셜 정보</h2>
           <div>
             <h3>GitHub</h3>
             <p>{data && data.email}</p>
@@ -135,8 +151,10 @@ export default function Settings() {
           </div>
         </div>
 
-        <div>
-        계정 탈퇴하기...
+        <div style={{ marginBottom: "2rem" }}>
+          <Button onClick={() => deleteUser(userData.id)} colorScheme="red">
+            계정 탈퇴
+          </Button>
         </div>
       </div>
 

@@ -5,10 +5,12 @@ import { Input, Textarea, Button, FormControl } from "@chakra-ui/react";
 import Header from "../components/main/Header";
 import { Formik, Form, Field } from "formik";
 import Link from "next/link";
+import {useState, useEffect} from "react";
 import { useAuth } from "../components/auth/AuthContext";
 import axios from "axios";
 import PostView from "../components/posts/PostView";
 import ResizeTextarea from "react-textarea-autosize";
+import Loader from "../components/main/Loader";
 
 function validateName(value) {
   let error;
@@ -19,15 +21,23 @@ function validateName(value) {
 }
 
 export default function Create() {
-  const { currentUser, loading, userData } = useAuth();
+  const { currentUser, userData } = useAuth();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
 
-
-  if (loading) {
-    return <p>lol</p>;
-  }
 
   if (!currentUser) router.push("/signup");
+
+  useEffect(() =>{
+    if (userData) setIsLoading(false);
+
+  }, [userData])
+
+  console.log(userData);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.container}>
@@ -48,6 +58,7 @@ export default function Create() {
                 title: values.title,
                 body: values.body,
                 user: userData.username,
+                user_id: userData.id
               }),
               headers: {
                 "Content-Type": "application/json",

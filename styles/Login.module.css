@@ -1,7 +1,11 @@
 .container {
-  padding: 0 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 4rem;
   margin: 0 auto;
-  max-width: 768px;
+  margin-top: 6rem;
+  max-width: 824px;
 }
 
 .fieldContainer {
@@ -43,8 +47,11 @@
 .formContainer {
   display: flex;
   flex-direction: row;
-  margin-top: 6rem;
   align-items: center;
+  padding: 0 4rem;
+  margin: 0 auto;
+  margin-top: 6rem;
+  max-width: 960px;
 }
 
 .formContainer Input:focus {
@@ -92,9 +99,10 @@
 }
 
 @media (max-width: 768px) {
-  .container {
+  .formContainer {
     padding: 0 1rem;
     margin: 0 auto;
+    margin-top: 6rem;
   }
 
   .fieldContainer {
