@@ -117,7 +117,7 @@ export default function Signup() {
   };
 
   const googleSignin = (username) => {
-    signInWithPopup(auth, googleProvider)
+    signInWithPopup(firebase.auth, googleProvider)
       .then((result) => {
         const user = result.user;
         createUserInstance(user.uid, user.email, username);
@@ -136,7 +136,7 @@ export default function Signup() {
   };
 
   const twitterSignin = (username) => {
-    signInWithPopup(auth, twitterProvider)
+    signInWithPopup(firebase.auth, twitterProvider)
       .then((result) => {
         const user = result.user;
         createUserInstance(user.uid, user.email, username);

@@ -81,7 +81,7 @@ export default function Login() {
   };
 
   const googleLogin = () => {
-    signInWithPopup(auth, googleProvider)
+    signInWithPopup(firebase.auth, googleProvider)
       .then((result) => {
         const user = result.user;
         checkIfUserIdExists(user.uid);
@@ -94,7 +94,7 @@ export default function Login() {
   };
 
   const twitterLogin = () => {
-    signInWithPopup(auth, twitterProvider)
+    signInWithPopup(firebase.auth, twitterProvider)
       .then((result) => {
         const user = result.user;
         checkIfUserIdExists(user.uid);
@@ -123,7 +123,7 @@ export default function Login() {
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, actions) => {
-            signInWithEmailAndPassword(auth, values.email, values.password)
+            signInWithEmailAndPassword(firebase.auth, values.email, values.password)
               .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
