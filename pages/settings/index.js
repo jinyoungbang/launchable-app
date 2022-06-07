@@ -11,7 +11,7 @@ import { Button, Avatar, Center } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Loader from "../../components/main/Loader";
-import auth from "../../config/firebase";
+import firebase from "../../config/firebase";
 import { signOut } from "firebase/auth";
 
 import { useAuth } from "../../components/auth/AuthContext";
@@ -29,7 +29,7 @@ export default function Settings() {
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + id,
     }).then((res) => {
       if (res.status === 200) {
-        signOut(auth);
+        signOut(firebase.auth);
         router.push("/");
       } else console.log("error");
     });

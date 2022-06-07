@@ -2,7 +2,7 @@ import styles from "../../styles/components/main/UserDropdown.module.css";
 import { Avatar } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import auth from "../../config/firebase";
+import firebase from "../../config/firebase";
 import { signOut } from "firebase/auth";
 import { useAuth } from "../auth/AuthContext";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -22,7 +22,7 @@ const UserDropdown = (props) => {
   const router = useRouter();
 
   const logout = () => {
-    signOut(auth)
+    signOut(firebase.auth)
       .then(() => {
         if (router.pathname === "/") {
           router.reload();
