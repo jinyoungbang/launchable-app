@@ -73,7 +73,7 @@ export default function Settings() {
         <div className={styles.headerContainer}>
           <Avatar
             src={
-              "https://velog.velcdn.com/images/jinyoungbang/profile/f2430d79-f855-4ffd-9b97-66cc5b686784/image.jpeg"
+              data.profile.avatar_url
             }
             style={{
               height: "10rem",

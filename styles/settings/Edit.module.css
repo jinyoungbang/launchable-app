@@ -12,6 +12,21 @@
   padding: 2rem 0;
 }
 
+.headerContainer img {
+  /* background-color: white; */
+  opacity: 1;
+  transition: .3s ease;
+  /* backface-visibility: hidden; */
+}
+
+.headerContainer img:hover{
+  opacity: 0.5;
+}
+
+.headerContainer img:active{
+  opacity: 0.8;
+}
+
 .headerContainer h2 {
   font-size: 2rem;
   font-weight: 500;
