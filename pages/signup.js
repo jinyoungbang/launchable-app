@@ -16,7 +16,7 @@ import {
 import styles from "../styles/Login.module.css";
 import Header from "../components/main/Header";
 import MainButton from "../components/assets/MainButton";
-import auth from "../config/firebase";
+import firebase from "../config/firebase";
 import { useAuth } from "../components/auth/AuthContext";
 
 const googleProvider = new GoogleAuthProvider();
@@ -173,7 +173,7 @@ export default function Signup() {
               actions.setSubmitting(false);
               return;
             }
-            createUserWithEmailAndPassword(auth, values.email, values.password)
+            createUserWithEmailAndPassword(firebase.auth, values.email, values.password)
               .then((userCredential) => {
                 const user = userCredential.user;
                 createUserInstance(user.uid, user.email, values.username);

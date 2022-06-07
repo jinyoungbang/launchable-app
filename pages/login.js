@@ -12,7 +12,7 @@ import {
   GoogleAuthProvider,
   TwitterAuthProvider,
 } from "firebase/auth";
-import auth from "../config/firebase";
+import firebase from "../config/firebase";
 import { Formik, Form, Field, FormErrorMessage } from "formik";
 import MainButton from "../components/assets/MainButton";
 import { FcGoogle } from "react-icons/fc";
@@ -72,7 +72,7 @@ export default function Login() {
         setIsLoading(true);
         router.push("/");
       } else {
-        signOut(auth).then(() => {
+        signOut(firebase.auth).then(() => {
           setErrorMessage("아이디 만들고 회원가입 해주세요!");
           setIsError(true);
         });
