@@ -10,6 +10,7 @@ import { FaTimes } from "react-icons/fa";
 import { Formik, Form, Field } from "formik";
 import { Input, Button, FormControl, Avatar, Center } from "@chakra-ui/react";
 import useSWR from "swr";
+import { useSWRConfig } from "swr";
 import axios from "axios";
 import ResizeTextarea from "react-textarea-autosize";
 import firebase from "../../config/firebase";
@@ -22,6 +23,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 export default function SettingsEdit() {
   const { currentUser, userData } = useAuth();
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   // Hooks for Avatar Image Upload
   const [image, setImage] = useState("");
@@ -70,6 +72,19 @@ export default function SettingsEdit() {
     });
   };
 
+  const mutateFetcher = () => {
+    axios({
+      method: "post",
+      url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth",
+      data: JSON.stringify({
+        id: data.id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  };
+
   const handleFileUpload = async (e) => {
     setImageLoading(true);
     const storageRef = ref(firebase.storage, "avatars/" + data.id);
@@ -90,6 +105,7 @@ export default function SettingsEdit() {
         "Content-Type": "application/json",
       },
     }).then((res) => {
+      // mutate(process.env.NEXT_PUBLIC_API_ROUTE + "api/auth", mutateFetcher);
       setImageLoading(false);
     });
   };
