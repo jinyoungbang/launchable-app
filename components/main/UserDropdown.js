@@ -42,9 +42,7 @@ const UserDropdown = (props) => {
           <div className={styles.dropdownContainer}>
             {" "}
             <Avatar
-              src={
-                "https://velog.velcdn.com/images/jinyoungbang/profile/f2430d79-f855-4ffd-9b97-66cc5b686784/image.jpeg"
-              }
+              src={userData && userData.profile.avatar_url}
               style={{
                 height: "2.5rem",
                 width: "2.5rem",

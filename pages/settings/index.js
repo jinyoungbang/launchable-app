@@ -28,7 +28,6 @@ export default function Settings() {
       method: "delete",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + id,
     }).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         signOut(auth);
         router.push("/");
@@ -74,7 +73,7 @@ export default function Settings() {
         <div className={styles.headerContainer}>
           <Avatar
             src={
-              "https://velog.velcdn.com/images/jinyoungbang/profile/f2430d79-f855-4ffd-9b97-66cc5b686784/image.jpeg"
+              data.profile.avatar_url
             }
             style={{
               height: "10rem",
@@ -115,39 +114,43 @@ export default function Settings() {
             <h3>이름</h3>
             <p>
               {""}
-              {data && data.profile.display_name}
+              {data && data.profile.display_name ? (
+                <p>{data.profile.display_name}</p>
+              ) : (
+                <p style={{ fontWeight: 300, color: "grey" }}>없음</p>
+              )}
             </p>
           </div>
           <hr />
           <div>
             <h3>자기소개</h3>
-            {data && data.profile.about}
+            {data && data.profile.about ? (
+              <p style={{ whiteSpace: "pre-line" }}>{data.profile.about}</p>
+            ) : (
+              <p style={{ fontWeight: 300, color: "grey" }}>없음</p>
+            )}
           </div>
           <hr />
-          <div>
-            <h3>Email</h3>
-            <p>{data && data.email}</p>
-          </div>
         </div>
 
         <div className={styles.basicInfoContainer}>
           <h2>연락/소셜 정보</h2>
           <div>
             <h3>GitHub</h3>
-            <p>{data && data.email}</p>
+            <p>{data && data.profile.profile_links.github}</p>
           </div>
           <hr />
           <div>
             <h3>트위터</h3>
             <p>
               {""}
-              {data && data.profile.display_name}
+              {data && data.profile.profile_links.twitter}
             </p>
           </div>
           <hr />
           <div>
             <h3>링크드인</h3>
-            {data && data.profile.about}
+            {data && data.profile.profile_links.linkedin}
           </div>
         </div>
 

@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import auth from "../../config/firebase";
+import firebase from "../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import axios from "axios";
+
 
 export const AuthContext = createContext();
 
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(firebase.auth, (user) => {
       setCurrentUser(user);
       if (user) setUserDataFromServer(user.uid);
       setLoading(false);
