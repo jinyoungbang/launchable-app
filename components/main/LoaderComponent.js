@@ -1,6 +1,6 @@
 import { Spinner } from "@chakra-ui/react";
 
-const LoaderComponent = () => {
+const LoaderComponent = (props) => {
   return (
     <div
       style={{
@@ -24,7 +24,7 @@ const LoaderComponent = () => {
           speed="0.65s"
           emptyColor="gray.200"
           color="#038a64"
-          size="xl"
+          size={props.size || "xl"}
         />
       </div>
     </div>
