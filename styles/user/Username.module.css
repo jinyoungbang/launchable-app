@@ -1,0 +1,133 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 2rem 0;
+}
+
+.headerContainer h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.usernameContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+
+.basicInfoContainer {
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 1rem;
+  background-color: rgba(250, 250, 250, 255);
+  margin-bottom: 2rem;
+}
+
+.basicInfoContainer h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.basicInfoContainer h3 {
+  font-weight: 600;
+}
+
+.basicInfoContainer hr {
+  border-top: 1px solid #E2E8F0;
+  border-right: 0px;
+  border-bottom: 0px;
+  border-left: 0px;
+  margin: 10px 0px;
+}
+
+.basicInfoContainer input {
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+  background-color: white
+}
+
+.userDataContainer {
+  display: flex;
+}
+
+
+.categoryTitleMain {
+  color: #02503A;
+  width: 7rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.5rem 0.5rem;
+  /* border-bottom: 1px solid #02503A; */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+}
+
+.categoryTitleMainClicked {
+  color: #02503A;
+  font-size: 1.2rem;
+  width: 7rem;
+  font-weight: 700;
+  padding: 0.5rem 0.5rem;
+  border-bottom: 2.5px solid #02503A;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  .headerContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .usernameContainer {
+    margin-top: 1rem;
+    margin-left: 0;
+    align-items: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+}
+
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}

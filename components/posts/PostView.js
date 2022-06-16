@@ -30,13 +30,10 @@ const PostView = (props) => {
     if (confirm("포스트를 정말로 삭제하시겠습니까?")) {
       axios({
         method: "delete",
-        url:
-          process.env.NEXT_PUBLIC_API_ROUTE +
-          "api/posts/" +
-          postId
+        url: process.env.NEXT_PUBLIC_API_ROUTE + "api/posts/" + postId,
       }).then((res) => {
         if (res.status === 200) {
-          router.push("/")
+          router.push("/");
         }
       });
     }
@@ -55,7 +52,6 @@ const PostView = (props) => {
 
   useEffect(() => {
     if (userData) {
-      console.log(props);
       if (userData.username === props.user) setIsPostOwner(true);
     }
   }, [userData]);
@@ -84,15 +80,16 @@ const PostView = (props) => {
                 <a>@{props.user}</a>
               </Link>
             </h4>
-            {(isPostOwner && !props.isPreview) ? (
+            {isPostOwner && !props.isPreview ? (
               <div className={styles.actionsContainer}>
-                {/* <h4 onClick={() => setIsEditView(true)}>수정</h4> */}
-                &nbsp;
                 <h4
-                  onClick={() => deletePost(props.postId)}
+                  style={{ marginRight: "0.25rem" }}
+                  onClick={() => router.push("/edit?id=" + props.postId)}
                 >
-                  삭제
+                  수정
                 </h4>
+                &nbsp;
+                <h4 onClick={() => deletePost(props.postId)}>삭제</h4>
               </div>
             ) : null}
           </div>

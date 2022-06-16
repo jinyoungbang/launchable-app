@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Router from "next/router";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
@@ -11,6 +12,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   TwitterAuthProvider,
+  signOut,
 } from "firebase/auth";
 
 import styles from "../styles/Login.module.css";
@@ -33,7 +35,18 @@ function validateName(value) {
 export default function Signup() {
   const { currentUser } = useAuth();
   const router = useRouter();
-  if (currentUser) router.push("/");
+
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isWidthMinimized, setIsWidthMinimized] = useState(false);
+  const [usernameFilled, setUsernameFilled] = useState(false);
+  const [usernameFilledLoader, setUsernameFilledLoader] = useState(false);
+  const [usernameFilledError, setUsernameFilledError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  if (currentUser && !isSigningUp) {
+    router.push("/");
+  }
 
   const handleResize = () => {
     if (window.innerWidth < 544) {
@@ -51,11 +64,6 @@ export default function Signup() {
     }
     window.addEventListener("resize", handleResize);
   });
-
-  const [isWidthMinimized, setIsWidthMinimized] = useState(false);
-  const [usernameFilled, setUsernameFilled] = useState(false);
-  const [usernameFilledLoader, setUsernameFilledLoader] = useState(false);
-  const [usernameFilledError, setUsernameFilledError] = useState("");
 
   const checkUsernameExists = (username) => {
     setUsernameFilledLoader(true);
@@ -114,23 +122,51 @@ export default function Signup() {
         "Content-Type": "application/json",
       },
     });
+
+    Router.reload("/");
+  };
+
+  const socialLoginUserExists = async (uid) => {
+    return axios({
+      method: "get",
+      url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + uid,
+    }).then((res) => {
+      return res.data.userExists;
+    });
   };
 
   const googleSignin = (username) => {
+    setIsSigningUp(true);
     signInWithPopup(firebase.auth, googleProvider)
       .then((result) => {
-        const user = result.user;
-        createUserInstance(user.uid, user.email, username);
+        const uid = result.user.uid;
+        socialLoginUserExists(uid).then((userExists) => {
+          if (userExists) {
+            signOut(firebase.auth).then(() => {
+              setIsSigningUp(false);
+            });
+            setErrorMessage("소셜 로그인 아이디가 존재합니다. 다른 계정을 사용해주세요.");
+            setIsError(true);
+          } else {
+            const user = result.user;
+            createUserInstance(user.uid, user.email, username);
+          }
+        });
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
+        switch (error.code) {
+          case "auth/account-exists-with-different-credential":
+            console.log(`Email address ${this.state.email} already in use.`);
+            break;
+          default:
+            console.log(error.message);
+            break;
+        }
         const errorMessage = error.message;
         // The email of the user's account used.
         const email = error.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorMessage);
         // ...
       });
   };
@@ -138,10 +174,29 @@ export default function Signup() {
   const twitterSignin = (username) => {
     signInWithPopup(firebase.auth, twitterProvider)
       .then((result) => {
-        const user = result.user;
-        createUserInstance(user.uid, user.email, username);
+        const uid = result.user.uid;
+        socialLoginUserExists(uid).then((userExists) => {
+          if (userExists) {
+            signOut(firebase.auth).then(() => {
+              setIsSigningUp(false);
+            });
+            setErrorMessage("소셜 로그인 아이디가 존재합니다. 다른 계정을 사용해주세요.");
+            setIsError(true);
+          } else {
+            const user = result.user;
+            createUserInstance(user.uid, user.email, username);
+          }
+        });
       })
       .catch((error) => {
+        switch (error.code) {
+          case "auth/account-exists-with-different-credential":
+            console.log(`Email address ${this.state.email} already in use.`);
+            break;
+          default:
+            console.log(error.message);
+            break;
+        }
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -173,9 +228,15 @@ export default function Signup() {
               actions.setSubmitting(false);
               return;
             }
-            createUserWithEmailAndPassword(firebase.auth, values.email, values.password)
+            createUserWithEmailAndPassword(
+              firebase.auth,
+              values.email,
+              values.password
+            )
               .then((userCredential) => {
-                const user = userCredential.user;
+                return userCredential.user;
+              })
+              .then((user) => {
                 createUserInstance(user.uid, user.email, values.username);
               })
               .catch((error) => {
@@ -183,6 +244,8 @@ export default function Signup() {
                 const errorMessage = error.message;
                 if (errorCode === "auth/email-already-in-use") {
                   console.log("Email already in use.");
+                  setErrorMessage("이메일이 존재합니다. 다른 이메일을 사용해주세요.");
+                  setIsError(true);
                 }
                 actions.setSubmitting(false);
                 // ..
@@ -196,8 +259,18 @@ export default function Signup() {
                     isWidthMinimized ? { width: "100%" } : { width: "49%" }
                   }
                 >
-                  <h1 style={{fontWeight: 600, fontSize: "1.2rem"}}>{props.values.username}님, 안녕하세요!</h1>
-                  <p style={{fontWeight: 300, fontSize: "0.8rem", marginTop: "0.2rem"}}>이메일 아니면 소셜계정을 사용해서 회원가입을 해주세요.</p>
+                  <h1 style={{ fontWeight: 600, fontSize: "1.2rem" }}>
+                    {props.values.username}님, 안녕하세요!
+                  </h1>
+                  <p
+                    style={{
+                      fontWeight: 300,
+                      fontSize: "0.8rem",
+                      marginTop: "0.2rem",
+                    }}
+                  >
+                    이메일 아니면 소셜계정을 사용해서 회원가입을 해주세요.
+                  </p>
                   <br></br>
                   <Field name="email" validate={validateName}>
                     {({ field, form }) => (
@@ -231,6 +304,18 @@ export default function Signup() {
                       </FormControl>
                     )}
                   </Field>
+                  {isError ? (
+                    <p
+                      style={{
+                        color: "#F56565",
+                        fontSize: "0.8rem",
+                        fontWeight: "500",
+                        marginTop: "0.5rem",
+                      }}
+                    >
+                      {errorMessage}
+                    </p>
+                  ) : null}
                   <div className={styles.buttonContainer}>
                     <MainButton
                       isLoading={props.isSubmitting}

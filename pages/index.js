@@ -26,7 +26,6 @@ export default function Home() {
     fetcher
   );
 
-
   return (
     <div>
       <Head>
@@ -38,8 +37,9 @@ export default function Home() {
       <Header />
       <div className={mainStyles.homeContainer}>
         <PostsHeader />
-        {data ? (data.data.map((post) => (
-            <div onClick={() => router.push("/post/" + post.id)}>
+        {data ? (
+          data.data.map((post) => (
+            <div key={post.id} onClick={() => router.push("/post/" + post.id)}>
               <Preview
                 title={post.title}
                 user={post.user}
@@ -47,7 +47,10 @@ export default function Home() {
                 commentsCount={post.comments_count}
               />
             </div>
-          ))): <LoaderComponent />}
+          ))
+        ) : (
+          <LoaderComponent />
+        )}
       </div>
       <br />
     </div>

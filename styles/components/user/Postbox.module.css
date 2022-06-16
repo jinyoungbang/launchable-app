@@ -1,0 +1,36 @@
+.boxContainer article {
+    background-color: rgba(250, 250, 250, 255);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: background-color 140ms;
+    cursor: pointer;
+}
+
+.boxContainer article:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.boxContainer article:hover h2{
+    color: #2D3748;
+}
+
+.boxContainer .topHeader {
+    display: flex;
+    font-size: 0.75rem;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0.5rem;
+}
+
+.boxContainer h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.boxContainer h2 {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #4A5568;
+}

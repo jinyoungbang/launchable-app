@@ -3,7 +3,6 @@ import firebase from "../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import axios from "axios";
 
-
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -34,11 +33,15 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(firebase.auth, (user) => {
       setCurrentUser(user);
       if (user) setUserDataFromServer(user.uid);
+      else {
+        setCurrentUser(null);
+        setUserData(null);
+      }
       setLoading(false);
     });
 
     return unsubscribe;
-  }, []);
+  }, [currentUser]);
 
   const value = {
     currentUser,

@@ -17,6 +17,7 @@ const PostActionsBar = (props) => {
 
   const likePost = (uid) => {
     if (uid === null) router.push("/login")
+    console.log(uid)
     axios({
       method: "post",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/posts/like/" + props.postId,

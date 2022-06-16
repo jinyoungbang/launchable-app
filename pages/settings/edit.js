@@ -66,7 +66,6 @@ export default function SettingsEdit() {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      console.log(res);
       if (res.status === 200) router.push("/settings");
       else console.log("error");
     });
@@ -82,7 +81,7 @@ export default function SettingsEdit() {
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
   };
 
   const handleFileUpload = async (e) => {

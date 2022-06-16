@@ -7,15 +7,7 @@ import { signOut } from "firebase/auth";
 import { useAuth } from "../auth/AuthContext";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
 const UserDropdown = (props) => {
   const { currentUser, userData } = useAuth();
@@ -52,6 +44,9 @@ const UserDropdown = (props) => {
           </div>
         </MenuButton>
         <MenuList>
+          <Link href={"/user/" + (userData && userData.username)}>
+            <MenuItem>프로필</MenuItem>
+          </Link>
           <Link href="/settings">
             <MenuItem>설정</MenuItem>
           </Link>

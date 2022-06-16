@@ -73,7 +73,7 @@ export default function Login() {
         router.push("/");
       } else {
         signOut(firebase.auth).then(() => {
-          setErrorMessage("아이디 만들고 회원가입 해주세요!");
+          setErrorMessage("회원가입 하시고 로그인을 해주세요!");
           setIsError(true);
         });
       }

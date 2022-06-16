@@ -24,15 +24,18 @@ export default function Settings() {
   const [isLoading, setIsLoading] = useState(true);
 
   const deleteUser = (id) => {
-    axios({
-      method: "delete",
-      url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + id,
-    }).then((res) => {
-      if (res.status === 200) {
-        signOut(firebase.auth);
-        router.push("/");
-      } else console.log("error");
-    });
+    if (confirm("정말로 계정 탈퇴를 하시겠습니까?")) {
+      axios({
+        method: "delete",
+        url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + id,
+      }).then((res) => {
+        if (res.status === 200) {
+          signOut(firebase.auth);
+          router.push("/");
+        } else console.log("error");
+      });
+    }
+    return;
   };
 
   const fetcher = (url) =>
@@ -72,9 +75,7 @@ export default function Settings() {
       <div className={mainStyles.container}>
         <div className={styles.headerContainer}>
           <Avatar
-            src={
-              data.profile.avatar_url
-            }
+            src={data && data.profile.avatar_url}
             style={{
               height: "10rem",
               width: "10rem",
