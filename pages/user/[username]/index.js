@@ -34,11 +34,11 @@ export default function User() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (error) router.push("/")
     if (data) {
-      console.log(data);
       setIsLoading(false);
     }
-  }, [data]);
+  }, [data, error]);
 
   if (isLoading) return <Loader />;
 

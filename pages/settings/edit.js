@@ -67,7 +67,6 @@ export default function SettingsEdit() {
       },
     }).then((res) => {
       if (res.status === 200) router.push("/settings");
-      else console.log("error");
     });
   };
 

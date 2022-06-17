@@ -156,7 +156,6 @@ export default function Signup() {
       .catch((error) => {
         switch (error.code) {
           case "auth/account-exists-with-different-credential":
-            console.log(`Email address ${this.state.email} already in use.`);
             break;
           default:
             console.log(error.message);
@@ -191,7 +190,6 @@ export default function Signup() {
       .catch((error) => {
         switch (error.code) {
           case "auth/account-exists-with-different-credential":
-            console.log(`Email address ${this.state.email} already in use.`);
             break;
           default:
             console.log(error.message);

@@ -31,7 +31,6 @@ const UserDropdown = (props) => {
   };
 
   useEffect(() => {
-    console.log(userData)
     if (userData) setIsLoading(false);
   }, [userData]);
 

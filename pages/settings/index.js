@@ -32,7 +32,7 @@ export default function Settings() {
         if (res.status === 200) {
           signOut(firebase.auth);
           router.push("/");
-        } else console.log("error");
+        }
       });
     }
     return;

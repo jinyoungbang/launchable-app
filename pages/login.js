@@ -65,9 +65,7 @@ export default function Login() {
       method: "get",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + id,
     }).then((res) => {
-      // console.log(res)
       const userExists = res.data.userExists;
-      // console.log(userExists)
       if (userExists) {
         setIsLoading(true);
         router.push("/");
@@ -89,7 +87,6 @@ export default function Login() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
       });
   };
 

@@ -33,7 +33,6 @@ export default function Create() {
 
   }, [userData])
 
-  console.log(userData);
 
   if (isLoading) {
     return <Loader />;
