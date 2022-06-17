@@ -29,10 +29,6 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  function signOut() {
-    return signOut(firebase.auth);
-  }
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebase.auth, (user) => {
       if (user) {
@@ -52,7 +48,6 @@ export const AuthProvider = ({ children }) => {
     currentUser,
     userData,
     loading,
-    signOut
   };
 
   return (
