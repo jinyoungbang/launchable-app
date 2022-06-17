@@ -17,7 +17,6 @@ const ContentView = (props) => {
   const changeDateForView = (unparsedDate) => {
     const currentDate = new Date();
     const parsedDate = new Date(unparsedDate);
-    // const diff = currentDate - parsedDate;
     const minutes = ((currentDate.getTime() - parsedDate.getTime()) / 1000)/60;
     const days = minutes/60/24;
     if (minutes < 60) return (Math.trunc(minutes).toString() + "분 전")

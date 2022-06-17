@@ -9,6 +9,18 @@ import axios from "axios";
 const PostView = (props) => {
   const { userData } = useAuth();
   const router = useRouter();
+
+  const changeDateForView = (unparsedDate) => {
+    const currentDate = new Date();
+    const parsedDate = new Date(unparsedDate);
+    const minutes = (currentDate.getTime() - parsedDate.getTime()) / 1000 / 60;
+    const days = minutes / 60 / 24;
+    if (minutes < 60) return Math.trunc(minutes).toString() + "분 전";
+    else if (days < 1) return Math.trunc(minutes / 60).toString() + "시간 전";
+    else if (days < 30) return Math.trunc(days).toString() + "일 전";
+    else if (days < 365) return Math.trunc(days / 30).toString() + "달 전";
+    else return Math.trunc(days / 365).toString() + "년 전";
+  };
   //choose the screen size
   const handleScrollSize = () => {
     if (window.scrollY > 170) {
@@ -79,6 +91,8 @@ const PostView = (props) => {
               <Link href={"/user/" + props.user}>
                 <a>@{props.user}</a>
               </Link>
+              {"  "}·{"  "}
+              {changeDateForView(props.created_at)}
             </h4>
             {isPostOwner && !props.isPreview ? (
               <div className={styles.actionsContainer}>

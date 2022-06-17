@@ -35,10 +35,12 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (error) router.push("/")
     if (data) {
+      console.log(data)
       setIsLoading(false);
     }
-  }, [data]);
+  }, [data, error]);
 
   if (isLoading) return <Loader />
 
@@ -58,6 +60,7 @@ export default function Home() {
           title={data && data.title}
           body={data && data.body}
           likes={data && data.likes_count}
+          created_at={data && data.created_at}
           isPreview={false}
         />
         <PostActionsBar
