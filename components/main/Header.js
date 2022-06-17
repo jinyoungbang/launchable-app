@@ -8,10 +8,9 @@ import { useEffect } from "react";
 const Header = (props) => {
   const { currentUser, userData } = useAuth();
   useEffect(() => {
-    console.log(currentUser);
-    console.log(userData);
-  }, [currentUser]);
-  if (currentUser) {
+
+  }, [userData]);
+  if (userData) {
     return (
       <header className={styles.container}>
         <Link href="/">
