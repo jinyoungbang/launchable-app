@@ -14,6 +14,19 @@ const ContentView = (props) => {
   const [isCommentOwner, setIsCommentOwner] = useState(false);
   const [isEditView, setIsEditView] = useState(false);
 
+  const changeDateForView = (unparsedDate) => {
+    const currentDate = new Date();
+    const parsedDate = new Date(unparsedDate);
+    // const diff = currentDate - parsedDate;
+    const minutes = ((currentDate.getTime() - parsedDate.getTime()) / 1000)/60;
+    const days = minutes/60/24;
+    if (minutes < 60) return (Math.trunc(minutes).toString() + "분 전")
+    else if (days < 1) return (Math.trunc(minutes/60).toString() + "시간 전")
+    else if (days < 30) return (Math.trunc(days).toString() + "일 전")
+    else if (days < 365) return (Math.trunc(days/30).toString() + "달 전")
+    else return (Math.trunc(days/365).toString() + "년 전")
+  };
+
   useEffect(() => {
     if (userData) {
       if (userData.id === props.userId && userData.username === props.user)
@@ -131,7 +144,7 @@ const ContentView = (props) => {
               &nbsp;
               <h4>·</h4>
               &nbsp;
-              <h4>{props.date}</h4>
+              <h4>{changeDateForView(props.date)}</h4>
             </div>
           </div>
           {isCommentOwner ? (

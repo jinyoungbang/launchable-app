@@ -18,6 +18,16 @@ export default function User() {
   const router = useRouter();
   const { username } = router.query;
 
+  const changeDateForView = (unparsedDate) => {
+    const currentDate = new Date();
+    const parsedDate = new Date(unparsedDate);
+    // const diff = currentDate - parsedDate;
+    const days = ((currentDate.getTime() - parsedDate.getTime()) / 1000)/60/60/24;
+    if (days < 30) return (Math.trunc(days).toString() + "일 전에 가입했습니다!")
+    else if (days < 365) return (Math.trunc(days/30).toString() + "달 전에 가입했습니다!")
+    else return (Math.trunc(days/365).toString() + "년 전에 가입했습니다!")
+  };
+
   const fetcher = (url) =>
     axios({
       method: "get",
@@ -62,7 +72,7 @@ export default function User() {
           />
           <div className={styles.usernameContainer}>
             <h2>@{data && data.user_data.username}</h2>
-            <p>joined x days ago.</p>
+            <p style={{marginTop: "0.3rem", fontSize: "0.9rem", color: "#4A5568"}}>{changeDateForView(data.user_data.created_at)}</p>
           </div>
         </div>
         <div>
