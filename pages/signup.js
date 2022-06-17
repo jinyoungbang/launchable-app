@@ -142,6 +142,7 @@ export default function Signup() {
         const uid = result.user.uid;
         socialLoginUserExists(uid).then(async (userExists) => {
           if (userExists) {
+            console.log(userExists)
             await signOut(firebase.auth).then(() => {
               setIsSigningUp(false);
             });
