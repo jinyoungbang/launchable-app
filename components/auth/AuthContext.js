@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         setUserData(null);
       }
       setLoading(false);
-    });
+    }, [currentUser]);
 
     return unsubscribe;
   }, [currentUser]);
