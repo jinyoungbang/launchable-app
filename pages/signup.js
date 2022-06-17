@@ -109,7 +109,7 @@ export default function Signup() {
     });
   };
 
-  const createUserInstance = (id, email, username) => {
+  const createUserInstance = async (id, email, username) => {
     axios({
       method: "post",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/create",
@@ -140,7 +140,7 @@ export default function Signup() {
     signInWithPopup(firebase.auth, googleProvider)
       .then((result) => {
         const uid = result.user.uid;
-        socialLoginUserExists(uid).then((userExists) => {
+        socialLoginUserExists(uid).then(async (userExists) => {
           if (userExists) {
             signOut(firebase.auth).then(() => {
               setIsSigningUp(false);
@@ -149,7 +149,7 @@ export default function Signup() {
             setIsError(true);
           } else {
             const user = result.user;
-            createUserInstance(user.uid, user.email, username);
+            await createUserInstance(user.uid, user.email, username);
           }
         });
       })
@@ -174,7 +174,7 @@ export default function Signup() {
     signInWithPopup(firebase.auth, twitterProvider)
       .then((result) => {
         const uid = result.user.uid;
-        socialLoginUserExists(uid).then((userExists) => {
+        socialLoginUserExists(uid).then(async (userExists) => {
           if (userExists) {
             signOut(firebase.auth).then(() => {
               setIsSigningUp(false);
@@ -183,7 +183,7 @@ export default function Signup() {
             setIsError(true);
           } else {
             const user = result.user;
-            createUserInstance(user.uid, user.email, username);
+            await createUserInstance(user.uid, user.email, username);
           }
         });
       })
