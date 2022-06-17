@@ -9,7 +9,7 @@ const Header = (props) => {
   const { currentUser, userData } = useAuth();
   useEffect(() => {
     console.log(userData)
-  }, [userData]);
+  }, [userData, currentUser]);
   if (userData) {
     return (
       <header className={styles.container}>
