@@ -1,0 +1,32 @@
+.privacyContainer {
+    margin: 0 auto;
+    margin-top: 2rem;
+    max-width: 712px;
+}
+
+.privacyContainer h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.contentContainer h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+}
+
+.contentContainer h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.contentContainer {
+    margin-bottom: 2.25rem;
+}
+
+.contentContainer p {
+    font-size: 0.95rem;
+    font-weight: 400;
+}
