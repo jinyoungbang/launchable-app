@@ -8,7 +8,7 @@ import { useEffect } from "react";
 const Header = (props) => {
   const { currentUser, userData } = useAuth();
   useEffect(() => {
-
+    console.log(userData)
   }, [userData]);
   if (userData) {
     return (
