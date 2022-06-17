@@ -127,7 +127,7 @@ export default function Signup() {
   };
 
   const socialLoginUserExists = async (uid) => {
-    return axios({
+    return await axios({
       method: "get",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/" + uid,
     }).then((res) => {
