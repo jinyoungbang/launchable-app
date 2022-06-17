@@ -3,10 +3,11 @@ import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { useAuth } from "../auth/AuthContext";
 import UserDropdown from "./UserDropdown";
+import { useEffect } from "react";
 
 const Header = (props) => {
   const { currentUser } = useAuth();
-
+  useEffect(() => {}, [currentUser]);
   if (currentUser) {
     return (
       <header className={styles.container}>

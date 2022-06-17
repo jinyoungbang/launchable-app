@@ -24,11 +24,13 @@ const PostBox = (props) => {
       >
         <div>
           <div className={styles.topHeader}>
-            <h3 style={{ marginRight: "0.7rem" }}>
+            <h3 style={{marginRight: "0.4rem"}}>
               {changeDateForView(props.created_at)}
             </h3>
-            <h3 style={{ marginRight: "0.7rem" }}>{props.likes_count} 좋아요</h3>
-            <h3>{props.comments_count} 댓글</h3>
+            {" "}·{" "}
+            <h3 style={{marginRight: "0.4rem", marginLeft: "0.4rem"}}>{props.likes_count} 좋아요</h3>
+            {" "}·{" "}
+            <h3 style={{ marginLeft: "0.4rem"}}>{props.comments_count} 댓글</h3>
           </div>
           <h1>{props.title}</h1>
           <h2>{props.body.slice(0, 170) + "..."}</h2>
