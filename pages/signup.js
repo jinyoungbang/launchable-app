@@ -183,6 +183,7 @@ export default function Signup() {
             });
             setErrorMessage("소셜 로그인 아이디가 존재합니다. 다른 계정을 사용해주세요.");
             setIsError(true);
+            signOut(firebase.auth);
           } else {
             const user = result.user;
             await createUserInstance(user.uid, user.email, username);
