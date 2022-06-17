@@ -110,7 +110,7 @@ export default function Signup() {
   };
 
   const createUserInstance = async (id, email, username) => {
-    axios({
+    await axios({
       method: "post",
       url: process.env.NEXT_PUBLIC_API_ROUTE + "api/auth/create",
       data: JSON.stringify({
