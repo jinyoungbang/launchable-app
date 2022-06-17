@@ -6,8 +6,11 @@ import UserDropdown from "./UserDropdown";
 import { useEffect } from "react";
 
 const Header = (props) => {
-  const { currentUser } = useAuth();
-  useEffect(() => {}, [currentUser]);
+  const { currentUser, userData } = useAuth();
+  useEffect(() => {
+    console.log(currentUser);
+    console.log(userData);
+  }, [currentUser]);
   if (currentUser) {
     return (
       <header className={styles.container}>
