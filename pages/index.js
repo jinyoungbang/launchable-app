@@ -22,7 +22,7 @@ export default function Home() {
     });
 
   const { data, error } = useSWR(
-    process.env.NEXT_PUBLIC_API_ROUTE + "api/posts/recent",
+    process.env.NEXT_PUBLIC_API_ROUTE + "api/posts/trending",
     fetcher
   );
 
