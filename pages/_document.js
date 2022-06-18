@@ -6,7 +6,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Launchable</title>
           <meta name="description" content="1인 창업가/부트스트래퍼들 위한 커뮤니티. 투명하게 경험을 공유해고 서로 배우세요!"></meta>
           <meta property="og:type" content="website"></meta>
           <meta property="og:title" content="Launchable"></meta>
