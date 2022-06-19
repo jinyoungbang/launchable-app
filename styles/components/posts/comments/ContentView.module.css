@@ -23,7 +23,9 @@
 }
 
 .actionsContainer {
-  display: flex
+  display: flex;
+  min-width: 3rem;
+  justify-content: flex-end;
 }
 
 .actionsContainer h4 {

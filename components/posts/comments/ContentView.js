@@ -5,7 +5,7 @@ import { useAuth } from "../../auth/AuthContext";
 import axios from "axios";
 import { useSWRConfig } from "swr";
 import { Formik, Form, Field } from "formik";
-import { Input, Textarea, Button, FormControl } from "@chakra-ui/react";
+import { Input, Button, FormControl } from "@chakra-ui/react";
 import ResizeTextarea from "react-textarea-autosize";
 
 const ContentView = (props) => {
@@ -111,7 +111,7 @@ const ContentView = (props) => {
                   </FormControl>
                 )}
               </Field>
-              <div style={{marginBottom: "1rem"}}>
+              <div style={{minWidth: "3rem", marginBottom: "1rem", justifyContent: "flex-end"}}>
                 <Button variant="solid" onClick={() => setIsEditView(false)}>
                   취소
                 </Button>
