@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
 
 class MyDocument extends Document {
   render() {
@@ -18,19 +17,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Alata&display=swap"
             rel="stylesheet"
           />
-          {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-1Y2HGTYY8Y"
-            strategy="afterInteractive"
-          ></Script>
-          <Script strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-1Y2HGTYY8Y');
-          `}
-          </Script>
           <meta
             name="naver-site-verification"
             content="a21d3b808904975c71d62048d07a55a95505bfcb"
