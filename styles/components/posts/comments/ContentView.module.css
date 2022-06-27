@@ -1,10 +1,13 @@
-.viewContainer {
-  display: flex;
+.commentContainer {
+  border-bottom: 0.9px solid gainsboro;
   padding: 0.5rem 0;
   margin-top: 0.5rem;
+}
+
+.viewContainer {
+  display: flex;
   justify-content: space-between;
   white-space: pre-line;
-  border-bottom: 0.9px solid gainsboro;
 }
 
 .viewContainer h3 {
@@ -20,6 +23,15 @@
   font-size: 10px;
   font-weight: 400;
   color: grey
+}
+
+.infoContainer .link h4 {
+  cursor: pointer;
+}
+
+.infoContainer .link:hover h4 {
+  text-decoration: underline;
+  color: #038a64;
 }
 
 .actionsContainer {

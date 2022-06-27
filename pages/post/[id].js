@@ -37,7 +37,6 @@ export default function Home() {
   useEffect(() => {
     if (error) router.push("/")
     if (data) {
-      console.log(data)
       setIsLoading(false);
     }
   }, [data, error]);

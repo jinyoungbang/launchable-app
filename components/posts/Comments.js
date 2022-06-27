@@ -5,7 +5,7 @@ import ContentView from "./comments/ContentView";
 import { useAuth } from "../auth/AuthContext";
 import axios from "axios";
 import { useSWRConfig } from "swr";
-import styles from "../../styles/components/posts/Comments.module.css"
+import styles from "../../styles/components/posts/Comments.module.css";
 import ResizeTextarea from "react-textarea-autosize";
 import { useRouter } from "next/router";
 
@@ -15,8 +15,30 @@ const Comments = (props) => {
   const { mutate } = useSWRConfig();
   const [comments, setComments] = useState([]);
 
+  const generateAllComments = async (comments) => {
+    if (comments.length === 0 || comments === []) return [];
+    if (comments[0].comments.length > 0) {
+      let left = [comments[0]];
+      let middle = await generateAllComments(comments[0].comments);
+      let right = await generateAllComments(comments.slice(1));
+      let res = left.concat(middle).concat(right);
+      return res;
+    } else {
+      let left = [comments[0]];
+      let right = await generateAllComments(comments.slice(1));
+      let res = left.concat(right);
+      return res;
+    }
+  };
+
   useEffect(() => {
-    if (props.comments) setComments(props.comments);
+    const getComments = async () => {
+      const commentsData = await generateAllComments(props.comments);
+      setComments(commentsData);
+    };
+    if (props.comments) {
+      getComments();
+    }
   }, [props]);
 
   return (
@@ -25,7 +47,7 @@ const Comments = (props) => {
       <Formik
         initialValues={{ comment: "" }}
         onSubmit={(values, actions) => {
-          if (!userData) router.push("/login")
+          if (!userData) router.push("/login");
           axios({
             method: "post",
             url:
@@ -53,7 +75,7 @@ const Comments = (props) => {
         }}
       >
         {(props) => (
-          <Form style={{marginBottom: "2rem"}}>
+          <Form style={{ marginBottom: "2rem" }}>
             <Field name="comment">
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name}>
@@ -63,7 +85,7 @@ const Comments = (props) => {
                     id="title"
                     variant="outline"
                     size="md"
-                    style={{marginBottom: "0.5rem", padding: "0.5rem 1rem"}}
+                    style={{ marginBottom: "0.5rem", padding: "0.5rem 1rem" }}
                     resize="none"
                     minRows={3}
                     as={ResizeTextarea}
@@ -90,6 +112,9 @@ const Comments = (props) => {
           user={comment.username}
           userId={comment.user_id}
           date={comment.updated_at}
+          level={comment.level}
+          parents={comment.parents ? comment.parents : []}
+          deleted={comment.deleted}
         />
       ))}
     </div>
