@@ -396,11 +396,11 @@ export default function Signup() {
               Launchable에서 새로운 계정을 만드세요!
             </h1>
             <br></br>
-            <h1>개인 사업를 운영하는 다른 파운더들과 소통하세요.</h1>
+            <h1>창업 아이템 및 서비스를 운영하는 다른 파운더들과 투명하게 소통하세요.</h1>
             <br></br>
-            <h1>아이디어, 랜딩 페이지 등에 대한 피드백을 받으십시오.</h1>
-            <br />
-            <h1>Get the best new stories from founders in your inbox.</h1>
+            <h1>아이디어, 랜딩 페이지 등에 대한 피드백을 받으세요.</h1>
+            {/* <br /> */}
+            {/* <h1></h1> */}
           </div>
         )}
       </div>
