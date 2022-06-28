@@ -57,7 +57,7 @@ const PostView = (props) => {
     console.log(body)
     var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return body.replace(urlRegex, function(url) {
-        return '<a style="color: #038a64;" href="' + url + '" >' + url + '</a>';
+        return '<a style="color: #02503A; font-weight: 500;" href="' + url + '" >' + url + '</a>';
     });
   };
 
