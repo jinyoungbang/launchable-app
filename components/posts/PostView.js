@@ -5,6 +5,7 @@ import Link from "next/link";
 // import PostActions from "./PostActions";
 import { useRouter } from "next/router";
 import axios from "axios";
+import parse from 'html-react-parser'
 
 const PostView = (props) => {
   const { userData } = useAuth();
@@ -52,6 +53,14 @@ const PostView = (props) => {
     return;
   };
 
+  const generateAnchor = (body) => {
+    console.log(body)
+    var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return body.replace(urlRegex, function(url) {
+        return '<a style="color: #038a64;" href="' + url + '" >' + url + '</a>';
+    });
+  };
+
   const [isPostOwner, setIsPostOwner] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isWidthMinimized, setIsWidthMinimized] = useState(false);
@@ -76,7 +85,7 @@ const PostView = (props) => {
           style={
             isWidthMinimized
               ? {
-                  display: "flex",
+                  // display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                   marginTop: "1rem",
@@ -113,7 +122,7 @@ const PostView = (props) => {
             likes={props.likes}
           /> */}
         </div>
-        <p>{props.body}</p>
+        <p>{parse(generateAnchor(props.body))}</p>
       </div>
     </div>
   );

@@ -14,6 +14,10 @@
   font-weight: 400;
 }
 
+.anchorUrl {
+  color: #038a64;
+}
+
 .subtitleContainer {
   display: flex !important;
   justify-content: space-between !important;
